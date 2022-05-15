@@ -3,8 +3,6 @@ import matplotlib.pyplot as plt
 import random
 import pandas as pd
 
-plt.show(block=False)
-
 # create initial population
 
 def path(cities):
@@ -155,8 +153,15 @@ C = 50
 
 x, y = np.random.rand(C), np.random.rand(C)
 
+fig = plt.gcf()
+fig.show()
+fig.canvas.draw()
+
 plt.scatter(x, y)
-plt.show()
+plt.plot()
+# plt.show()
+plt.pause(0.00000001)
+fig.canvas.draw()
 
 cities = list(zip(x,y))
 
@@ -173,6 +178,31 @@ def run_algorithm(pop, P, S, M, G):
         pop = next_generation(pop, S, M)
         progress.append(1/fitness(pop)[0][1])
 
+        best_path = pop[0]
+
+        plt.clf()
+
+        for i in range(len(best_path)-1):
+            plt.plot([best_path[i][0], best_path[i+1][0]], [best_path[i][1], best_path[i+1][1]], 'b-')
+        plt.plot([best_path[-1][0], best_path[0][0]], [best_path[-1][1], best_path[0][1]], 'b-')
+
+        plt.scatter(x, y)
+        plt.pause(0.000000001)
+        fig.canvas.draw()
+
+    # show final path
+
+    for i in range(len(best_path)-1):
+        plt.plot([best_path[i][0], best_path[i+1][0]], [best_path[i][1], best_path[i+1][1]], 'b-')
+    plt.plot([best_path[-1][0], best_path[0][0]], [best_path[-1][1], best_path[0][1]], 'b-')
+
+    plt.scatter(x, y)
+    plt.show()
+
+    # show learning curve
+
+    plt.clf()
+
     plt.plot(progress)
     plt.ylabel('Distance')
     plt.xlabel('Generation')
@@ -183,15 +213,4 @@ def run_algorithm(pop, P, S, M, G):
 
     print("Distance: ", 1/fitness(pop)[0][1])
 
-    return best_path
-
-# plot best path
-
-best_path = run_algorithm(pop=cities, P=100, S=20, M=0.01, G=250)   # P = population size, S = selection for mating pool size, M = mutation rate, G = number of generations
-
-for i in range(len(best_path)-1):
-    plt.plot([best_path[i][0], best_path[i+1][0]], [best_path[i][1], best_path[i+1][1]], 'r-')
-plt.plot([best_path[-1][0], best_path[0][0]], [best_path[-1][1], best_path[0][1]], 'r-')
-
-plt.scatter(x, y)
-plt.show()
+run_algorithm(pop=cities, P=100, S=20, M=0.01, G=50)   # P = population size, S = selection for mating pool size, M = mutation rate, G = number of generations
