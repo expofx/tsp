@@ -2,6 +2,25 @@ import numpy as np
 import matplotlib.pyplot as plt
 import random
 import pandas as pd
+import argparse
+
+# arguments
+
+parser = argparse.ArgumentParser()
+parser.add_argument("-p", "--Population", help = "Population size", type = int, default = 100)
+parser.add_argument("-c", "--Cities", help = "Number of cities", type = int, default = 10)
+parser.add_argument("-s", "--Selection", help = "Selection size", type = int, default = 20)
+parser.add_argument("-m", "--Mutation", help = "Mutation rate", type = float, default = 0.01)
+parser.add_argument("-g", "--Generations", help = "Number of generations", type = int, default = 100)
+args = parser.parse_args()
+
+# assign variables
+
+P = args.Population
+C = args.Cities
+S = args.Selection
+M = args.Mutation
+G = args.Generations
 
 # create initial population
 
@@ -149,8 +168,6 @@ def next_generation(pop, S, M):
 
 # plot cities
 
-C = 50
-
 x, y = np.random.rand(C), np.random.rand(C)
 
 fig = plt.gcf()
@@ -167,7 +184,7 @@ cities = list(zip(x,y))
 
 # run algorithm
 
-def run_algorithm(pop, P, S, M, G):
+def run_algorithm(P, S, M, G):
 
     pop = population(P, cities) # initial population
 
@@ -213,4 +230,4 @@ def run_algorithm(pop, P, S, M, G):
 
     print("Distance: ", 1/fitness(pop)[0][1])
 
-run_algorithm(pop=cities, P=100, S=20, M=0.01, G=50)   # P = population size, S = selection for mating pool size, M = mutation rate, G = number of generations
+run_algorithm(P, S, M, G)
