@@ -210,8 +210,8 @@ def run_algorithm(P, S, M, G):
     # show final path
 
     for i in range(len(best_path)-1):
-        plt.plot([best_path[i][0], best_path[i+1][0]], [best_path[i][1], best_path[i+1][1]], 'b-')
-    plt.plot([best_path[-1][0], best_path[0][0]], [best_path[-1][1], best_path[0][1]], 'b-')
+        plt.plot([best_path[i][0], best_path[i+1][0]], [best_path[i][1], best_path[i+1][1]], 'o-')
+    plt.plot([best_path[-1][0], best_path[0][0]], [best_path[-1][1], best_path[0][1]], 'o-')
 
     plt.scatter(x, y)
     plt.show()

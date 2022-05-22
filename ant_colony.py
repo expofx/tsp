@@ -27,8 +27,6 @@ G = args.Generations
 
 # plot cities
 
-# C = 100
-
 x, y = np.random.rand(C), np.random.rand(C)
 
 fig = plt.gcf()
